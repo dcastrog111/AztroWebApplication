@@ -22,4 +22,16 @@ public class UserController : ControllerBase
         var users = await userService.GetAllUsers();
         return Ok(users);
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUserById(int id)
+    {
+        var user = await userService.GetUserById(id);
+        if (user == null)
+        {
+            return NotFound(new ErrorResponse { Message = "User not found", StatusCode = 404 });
+        }
+
+        return Ok(user);
+    }
 }

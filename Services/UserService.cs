@@ -15,5 +15,10 @@ namespace AztroWebApplication.Services{
         {
             return await userRepository.GetAllUsers();
         }
+
+        public async Task<User?> GetUserById(int id)
+        {
+            return await userRepository.GetUserById(id);
+        }
     }
 }

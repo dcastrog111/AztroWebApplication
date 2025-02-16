@@ -22,6 +22,9 @@ namespace AztroWebApplication.Repositories{
             return await dbContext.User.ToListAsync();
         }
 
-        
+        public async Task<User?> GetUserById(int id)
+        {
+            return await dbContext.User.FirstOrDefaultAsync(user => user.Id == id);
+        }
     }
 }
