@@ -49,6 +49,18 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        var userRemoved = await userService.DeleteUser(id);
+        if (userRemoved == null)
+        {
+            return NotFound(new ErrorResponse { Message = "User not found", StatusCode = 404 });
+        }
+
+        return Ok(new { Message = "User removed successfully", User = userRemoved });
+    }
+
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateUser(int id, User user)
     {

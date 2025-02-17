@@ -35,6 +35,17 @@ namespace AztroWebApplication.Repositories{
             return newUser.Entity;
         }
 
+
+        public async Task<User?> DeleteUser(int id){
+
+            var user = await this.GetUserById(id);
+            if(user == null) return null;
+            
+            dbContext.Remove(user);
+            await dbContext.SaveChangesAsync();
+            return user;
+        }
+
         public async Task<User?> UpdateUser(int id, User user)
         {
             var userToBeUpdate = await this.GetUserById(id);
@@ -65,5 +76,6 @@ namespace AztroWebApplication.Repositories{
             }
             return current;
         }
+
     }
 }
