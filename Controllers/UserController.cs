@@ -48,4 +48,11 @@ public class UserController : ControllerBase
             return BadRequest(new ErrorResponse { Message = e.Message, StatusCode =  400});
         }
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateUser(int id, User user)
+    {
+        var userUpdated = await userService.UpdateUser(id, user);
+        return Ok(userUpdated);
+    }
 }
