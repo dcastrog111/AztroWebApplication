@@ -4,6 +4,9 @@ using AztroWebApplication.Models;
 
 namespace AztroWebApplication.Services{
     public class UserService{
+
+        private const int minimumAge  = 18;
+
         private readonly UserRepository userRepository;
 
         public UserService(ApplicationDbContext context)
@@ -19,6 +22,17 @@ namespace AztroWebApplication.Services{
         public async Task<User?> GetUserById(int id)
         {
             return await userRepository.GetUserById(id);
+        }
+
+        public async Task<User> CreateUser(User user)
+        {
+
+            if(user.Age < minimumAge )
+            {
+                throw new Exception("User must be at least 18 years old");
+            }
+
+            return await userRepository.CreateUser(user);
         }
     }
 }

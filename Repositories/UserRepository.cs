@@ -26,5 +26,12 @@ namespace AztroWebApplication.Repositories{
         {
             return await dbContext.User.FirstOrDefaultAsync(user => user.Id == id);
         }
+
+        public async Task<User> CreateUser(User user)
+        {
+            var newUser = dbContext.User.Add(user);
+            await dbContext.SaveChangesAsync();
+            return newUser.Entity;
+        }
     }
 }

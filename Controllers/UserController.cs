@@ -34,4 +34,18 @@ public class UserController : ControllerBase
 
         return Ok(user);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateUser(User user)
+    {
+        try
+        {
+            var newUser = await userService.CreateUser(user);
+            return Created(nameof(GetUserById), newUser);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponse { Message = e.Message, StatusCode =  400});
+        }
+    }
 }
